@@ -1,11 +1,8 @@
 ----------------------------------------------------------------------------------------------------
-
 -- author: zuorn
 -- mail: zuorn@qq.com
 -- github: https://github.com/zuorn/hammerspoon_config
-
 ----------------------------------------------------------------------------------------------------
-
 ----------------------------------------------------------------------------------------------------
 hs.hotkey.alertDuration = 0
 hs.hints.showTitleThresh = 0
@@ -19,7 +16,8 @@ utils = require("utils")
 -- 配置文件
 -- 使用自定义配置 （如果存在的话）
 ----------------------------------------------------------------------------------------------------
-custom_config = hs.fs.pathToAbsolute(os.getenv("HOME") .. "/.config/hammerspoon/private/config.lua")
+custom_config = hs.fs.pathToAbsolute(os.getenv("HOME") ..
+                                         "/.config/hammerspoon/private/config.lua")
 if custom_config then
     print("加载自定义配置文件。")
     dofile(os.getenv("HOME") .. "/.config/hammerspoon/private/config.lua")
@@ -42,11 +40,10 @@ else
     end
 end
 
-hsreload_keys = hsreload_keys or { { "cmd", "shift", "ctrl" }, "R" }
+hsreload_keys = hsreload_keys or {{"cmd", "shift", "ctrl"}, "R"}
 if string.len(hsreload_keys[2]) > 0 then
-    hs.hotkey.bind(hsreload_keys[1], hsreload_keys[2], "重新加载配置!", function()
-        hs.reload()
-    end)
+    hs.hotkey.bind(hsreload_keys[1], hsreload_keys[2], "重新加载配置!",
+                   function() hs.reload() end)
     hs.alert.show("配置文件已经重新加载！ ")
 end
 
@@ -60,36 +57,33 @@ hs.loadSpoon("ModalMgr")
 -- 定义默认加载的 Spoons
 if not hspoon_list then
     hspoon_list = {
-        "AClock",                  -- 一个钟
-        "ClipShow",                -- 剪切板
-        "VolumeScroll",            -- 鼠标滚轮调节音量
+        "AClock", -- 一个钟
+        "ClipShow", -- 剪切板
+        "VolumeScroll", -- 鼠标滚轮调节音量
         "PopupTranslateSelection", -- 翻译选中文本
-        "SpeedMenu",               -- 菜单栏显示网速
-        "MountedVolumes",          -- 显示已安装卷的饼图
-        "HeadphoneAutoPause",      -- 断开耳机自动暂停播放
-        "HSearch",
-        "KSheet",                  -- 快捷键
-        "CountDown",               -- 倒计时
-        "WinWin",                  -- 窗口管理
+        "SpeedMenu", -- 菜单栏显示网速
+        "MountedVolumes", -- 显示已安装卷的饼图
+        "HeadphoneAutoPause", -- 断开耳机自动暂停播放
+        "HSearch", "KSheet", -- 快捷键
+        "CountDown", -- 倒计时
+        "WinWin" -- 窗口管理
     }
 end
 
 -- 加载 Spoons
-for _, v in pairs(hspoon_list) do
-    hs.loadSpoon(v)
-end
+for _, v in pairs(hspoon_list) do hs.loadSpoon(v) end
 
 local module_list = {
-    --"Network",
-    --"Music",
-    --"Window",
-    --"Space",
-    --"Spotlightlike",
-    "IME",
-    --"AppKeyMap",
-    --"Hotkey",
-    --"DesktopWidget",
-    --"test",
+    -- "Network",
+    -- "Music",
+    -- "Window",
+    -- "Space",
+    -- "Spotlightlike",
+    "IME"
+    -- "AppKeyMap",
+    -- "Hotkey",
+    -- "DesktopWidget",
+    -- "test",
 }
 for _, v in ipairs(module_list) do
     require("module." .. v)
@@ -97,9 +91,9 @@ for _, v in ipairs(module_list) do
     --	if not string.find(owner, "mini") then
     --		require("module." .. v)
     --	end
-    --else
+    -- else
     --	require("module." .. v)
-    --end
+    -- end
 end
 ----------------------------------------------------------------------------------------------------
 --------------------------------------- appM 快速打开应用 ---------------------------------------------
@@ -113,7 +107,7 @@ end
 -- cmodal:bind("", "Q", "退出 ", function()
 -- 	spoon.ModalMgr:deactivate({ "appM" })
 -- end)
---cmodal:bind('', 'tab', 'Toggle Cheatsheet', function() spoon.ModalMgr:toggleCheatsheet() end)
+-- cmodal:bind('', 'tab', 'Toggle Cheatsheet', function() spoon.ModalMgr:toggleCheatsheet() end)
 -- if not hsapp_list then
 -- 	hsapp_list = {
 -- 		{ key = "f", name = "Finder" },
@@ -143,8 +137,8 @@ end
 ----------------------------------------------------------------------------------------------------
 -- 绑定快捷键
 ----------------------------------------------------------------------------------------------------
---hsappM_keys = hsappM_keys or { "alt", "A" }
---if string.len(hsappM_keys[2]) > 0 then
+-- hsappM_keys = hsappM_keys or { "alt", "A" }
+-- if string.len(hsappM_keys[2]) > 0 then
 --	spoon.ModalMgr.supervisor:bind(
 --		hsappM_keys[1],
 --		hsappM_keys[2],
@@ -154,12 +148,12 @@ end
 --			spoon.ModalMgr:activate({ "appM" }, "#FFBD2E", true)
 --		end
 --	)
---end
+-- end
 
 ----------------------------------------------------------------------------------------------------
 ---------------------------------------- clipshowM 配置 ---------------------------------------------
 ----------------------------------------------------------------------------------------------------
---if spoon.ClipShow then
+-- if spoon.ClipShow then
 --	spoon.ModalMgr:new("clipshowM")
 --	local cmodal = spoon.ModalMgr.modal_list["clipshowM"]
 --	cmodal:bind("", "escape", "退出 剪切板", function()
@@ -218,19 +212,19 @@ end
 --			end
 --		end)
 --	end
---end
+-- end
 
 ----------------------------------------------------------------------------------------------------
 -- 绑定 AClock 快捷键
 ----------------------------------------------------------------------------------------------------
---if spoon.AClock then
+-- if spoon.AClock then
 --	hsaclock_keys = hsaclock_keys or { "alt", "T" }
 --	if string.len(hsaclock_keys[2]) > 0 then
 --		spoon.ModalMgr.supervisor:bind(hsaclock_keys[1], hsaclock_keys[2], "时钟", function()
 --			spoon.AClock:toggleShow()
 --		end)
 --	end
---end
+-- end
 --
 ----------------------------------------------------------------------------------------------------
 --  绑定 PopupTranslateSelection 快捷键
@@ -242,8 +236,8 @@ end
 ----------------------------------------------------------------------------------------------------
 -- 粘贴浏览器最前置的标题和地址
 ----------------------------------------------------------------------------------------------------
---hstype_keys = hstype_keys or { "alt", "V" }
---if string.len(hstype_keys[2]) > 0 then
+-- hstype_keys = hstype_keys or { "alt", "V" }
+-- if string.len(hstype_keys[2]) > 0 then
 --	spoon.ModalMgr.supervisor:bind(
 --		hstype_keys[1],
 --		hstype_keys[2],
@@ -268,19 +262,19 @@ end
 --			end
 --		end
 --	)
---end
+-- end
 
 ----------------------------------------------------------------------------------------------------
 -- Hammerspoon 搜索
 ----------------------------------------------------------------------------------------------------
---if spoon.HSearch then
+-- if spoon.HSearch then
 --	hsearch_keys = hsearch_keys or { "alt", "G" }
 --	if string.len(hsearch_keys[2]) > 0 then
 --		spoon.ModalMgr.supervisor:bind(hsearch_keys[1], hsearch_keys[2], "启动 Hammerspoon 搜索", function()
 --			spoon.HSearch:toggleShow()
 --		end)
 --	end
---end
+-- end
 
 ----------------------------------------------------------------------------------------------------
 -- 定义各种模式快捷键绑定
@@ -298,20 +292,21 @@ end
 ----------------------------------------------------------------------------------------------------
 -- 快捷显示 Hammerspoon 控制台
 ----------------------------------------------------------------------------------------------------
-hsconsole_keys = hsconsole_keys or { { "alt", "shift" }, "C" }
+hsconsole_keys = hsconsole_keys or {{"alt", "shift"}, "C"}
 if string.len(hsconsole_keys[2]) > 0 then
-    spoon.ModalMgr.supervisor:bind(hsconsole_keys[1], hsconsole_keys[2], "打开 Hammerspoon 控制台", function()
-        hs.toggleConsole()
-    end)
+    spoon.ModalMgr.supervisor:bind(hsconsole_keys[1], hsconsole_keys[2],
+                                   "打开 Hammerspoon 控制台",
+                                   function() hs.toggleConsole() end)
 end
 
 ----------------------------------------------------------------------------------------------------
 -- 在浏览器中打开 Hammerspoon API 手册
 ----------------------------------------------------------------------------------------------------
-hsman_keys = hsman_keys or { { "alt", "shift" }, "A" }
+hsman_keys = hsman_keys or {{"alt", "shift"}, "A"}
 -- hsman_keys = hsman_keys or { { "alt", "shift" }, "A" }
 if string.len(hsman_keys[2]) > 0 then
-    spoon.ModalMgr.supervisor:bind(hsman_keys[1], hsman_keys[2], "查看 Hammerspoon 手册", function()
+    spoon.ModalMgr.supervisor:bind(hsman_keys[1], hsman_keys[2],
+                                   "查看 Hammerspoon 手册", function()
         hs.doc.hsdocs.forceExternalBrowser(true)
         hs.doc.hsdocs.moduleEntitiesInSidebar(true)
         hs.doc.hsdocs.help()
@@ -324,39 +319,39 @@ end
 if spoon.CountDown then
     spoon.ModalMgr:new("countdownM")
     local cmodal = spoon.ModalMgr.modal_list["countdownM"]
-    cmodal:bind("", "escape", "退出面板", function()
-        spoon.ModalMgr:deactivate({ "countdownM" })
-    end)
-    cmodal:bind("", "Q", "退出面板", function()
-        spoon.ModalMgr:deactivate({ "countdownM" })
-    end)
-    --cmodal:bind('', 'tab', 'Toggle Cheatsheet', function() spoon.ModalMgr:toggleCheatsheet() end)
+    cmodal:bind("", "escape", "退出面板",
+                function() spoon.ModalMgr:deactivate({"countdownM"}) end)
+    cmodal:bind("", "Q", "退出面板",
+                function() spoon.ModalMgr:deactivate({"countdownM"}) end)
+    -- cmodal:bind('', 'tab', 'Toggle Cheatsheet', function() spoon.ModalMgr:toggleCheatsheet() end)
     cmodal:bind("", "0", "1 分钟", function()
         spoon.CountDown:startFor(1)
-        spoon.ModalMgr:deactivate({ "countdownM" })
+        spoon.ModalMgr:deactivate({"countdownM"})
     end)
     for i = 1, 9 do
-        cmodal:bind("", tostring(i), string.format("%s 分钟", 10 * i), function()
+        cmodal:bind("", tostring(i), string.format("%s 分钟", 10 * i),
+                    function()
             spoon.CountDown:startFor(10 * i)
-            spoon.ModalMgr:deactivate({ "countdownM" })
+            spoon.ModalMgr:deactivate({"countdownM"})
         end)
     end
     cmodal:bind("", "return", "25 分钟 ", function()
         spoon.CountDown:startFor(25)
-        spoon.ModalMgr:deactivate({ "countdownM" })
+        spoon.ModalMgr:deactivate({"countdownM"})
     end)
     cmodal:bind("", "space", "暂停和恢复倒计时", function()
         spoon.CountDown:pauseOrResume()
-        spoon.ModalMgr:deactivate({ "countdownM" })
+        spoon.ModalMgr:deactivate({"countdownM"})
     end)
 
     -- 定义打开倒计时面板快捷键
-    hscountdM_keys = hscountdM_keys or { "alt", "I" }
+    hscountdM_keys = hscountdM_keys or {"alt", "I"}
     if string.len(hscountdM_keys[2]) > 0 then
-        spoon.ModalMgr.supervisor:bind(hscountdM_keys[1], hscountdM_keys[2], "进入倒计时面板", function()
+        spoon.ModalMgr.supervisor:bind(hscountdM_keys[1], hscountdM_keys[2],
+                                       "进入倒计时面板", function()
             spoon.ModalMgr:deactivateAll()
             -- 显示倒计时面板
-            spoon.ModalMgr:activate({ "countdownM" }, "#FF6347", true)
+            spoon.ModalMgr:activate({"countdownM"}, "#FF6347", true)
         end)
     end
 end
@@ -364,12 +359,12 @@ end
 ----------------------------------------------------------------------------------------------------
 -- 锁屏
 ----------------------------------------------------------------------------------------------------
---hslock_keys = { "cmd", "L" }
---if string.len(hslock_keys[2]) > 0 then
+-- hslock_keys = { "cmd", "L" }
+-- if string.len(hslock_keys[2]) > 0 then
 --	spoon.ModalMgr.supervisor:bind(hslock_keys[1], hslock_keys[2], "锁屏", function()
 --		hs.caffeinate.lockScreen()
 --	end)
---end
+-- end
 
 ----------------------------------------------------------------------------------------------------
 -- 窗口管理
@@ -378,64 +373,25 @@ if spoon.WinWin then
     print("WinWine load")
     spoon.ModalMgr:new("resizeM")
     local cmodal = spoon.ModalMgr.modal_list["resizeM"]
-    cmodal:bind("", "escape", "退出 ", function()
-        spoon.ModalMgr:deactivate({ "resizeM" })
-    end)
-    cmodal:bind("", "Q", "退出", function()
-        spoon.ModalMgr:deactivate({ "resizeM" })
-    end)
-    cmodal:bind("", "tab", "键位提示", function()
-        spoon.ModalMgr:toggleCheatsheet()
-    end)
+    cmodal:bind("", "escape", "退出 ",
+                function() spoon.ModalMgr:deactivate({"resizeM"}) end)
+    cmodal:bind("", "Q", "退出",
+                function() spoon.ModalMgr:deactivate({"resizeM"}) end)
+    cmodal:bind("", "tab", "键位提示",
+                function() spoon.ModalMgr:toggleCheatsheet() end)
 
-    cmodal:bind(
-        "",
-        "A",
-        "向左移动",
-        function()
-            spoon.WinWin:stepMove("left")
-        end,
-        nil,
-        function()
-            spoon.WinWin:stepMove("left")
-        end
-    )
-    cmodal:bind(
-        "",
-        "D",
-        "向右移动",
-        function()
-            spoon.WinWin:stepMove("right")
-        end,
-        nil,
-        function()
-            spoon.WinWin:stepMove("right")
-        end
-    )
-    cmodal:bind(
-        "",
-        "W",
-        "向上移动",
-        function()
-            spoon.WinWin:stepMove("up")
-        end,
-        nil,
-        function()
-            spoon.WinWin:stepMove("up")
-        end
-    )
-    cmodal:bind(
-        "",
-        "S",
-        "向下移动",
-        function()
-            spoon.WinWin:stepMove("down")
-        end,
-        nil,
-        function()
-            spoon.WinWin:stepMove("down")
-        end
-    )
+    cmodal:bind("", "A", "向左移动",
+                function() spoon.WinWin:stepMove("left") end, nil,
+                function() spoon.WinWin:stepMove("left") end)
+    cmodal:bind("", "D", "向右移动",
+                function() spoon.WinWin:stepMove("right") end, nil,
+                function() spoon.WinWin:stepMove("right") end)
+    cmodal:bind("", "W", "向上移动",
+                function() spoon.WinWin:stepMove("up") end, nil,
+                function() spoon.WinWin:stepMove("up") end)
+    cmodal:bind("", "S", "向下移动",
+                function() spoon.WinWin:stepMove("down") end, nil,
+                function() spoon.WinWin:stepMove("down") end)
 
     cmodal:bind("", "H", "左半屏", function()
         spoon.WinWin:stash()
@@ -501,79 +457,25 @@ if spoon.WinWin then
         spoon.WinWin:moveAndResize("center-3")
     end)
 
-    cmodal:bind(
-        "",
-        "=",
-        "窗口放大",
-        function()
-            spoon.WinWin:moveAndResize("expand")
-        end,
-        nil,
-        function()
-            spoon.WinWin:moveAndResize("expand")
-        end
-    )
-    cmodal:bind(
-        "",
-        "-",
-        "窗口缩小",
-        function()
-            spoon.WinWin:moveAndResize("shrink")
-        end,
-        nil,
-        function()
-            spoon.WinWin:moveAndResize("shrink")
-        end
-    )
+    cmodal:bind("", "=", "窗口放大",
+                function() spoon.WinWin:moveAndResize("expand") end, nil,
+                function() spoon.WinWin:moveAndResize("expand") end)
+    cmodal:bind("", "-", "窗口缩小",
+                function() spoon.WinWin:moveAndResize("shrink") end, nil,
+                function() spoon.WinWin:moveAndResize("shrink") end)
 
-    cmodal:bind(
-        "ctrl",
-        "H",
-        "向左收缩窗口",
-        function()
-            spoon.WinWin:stepResize("left")
-        end,
-        nil,
-        function()
-            spoon.WinWin:stepResize("left")
-        end
-    )
-    cmodal:bind(
-        "ctrl",
-        "L",
-        "向右扩展窗口",
-        function()
-            spoon.WinWin:stepResize("right")
-        end,
-        nil,
-        function()
-            spoon.WinWin:stepResize("right")
-        end
-    )
-    cmodal:bind(
-        "ctrl",
-        "K",
-        "向上收缩窗口",
-        function()
-            spoon.WinWin:stepResize("up")
-        end,
-        nil,
-        function()
-            spoon.WinWin:stepResize("up")
-        end
-    )
-    cmodal:bind(
-        "ctrl",
-        "J",
-        "向下扩镇窗口",
-        function()
-            spoon.WinWin:stepResize("down")
-        end,
-        nil,
-        function()
-            spoon.WinWin:stepResize("down")
-        end
-    )
+    cmodal:bind("ctrl", "H", "向左收缩窗口",
+                function() spoon.WinWin:stepResize("left") end, nil,
+                function() spoon.WinWin:stepResize("left") end)
+    cmodal:bind("ctrl", "L", "向右扩展窗口",
+                function() spoon.WinWin:stepResize("right") end, nil,
+                function() spoon.WinWin:stepResize("right") end)
+    cmodal:bind("ctrl", "K", "向上收缩窗口",
+                function() spoon.WinWin:stepResize("up") end, nil,
+                function() spoon.WinWin:stepResize("up") end)
+    cmodal:bind("ctrl", "J", "向下扩镇窗口",
+                function() spoon.WinWin:stepResize("down") end, nil,
+                function() spoon.WinWin:stepResize("down") end)
 
     cmodal:bind("", "left", "窗口移至左边屏幕", function()
         spoon.WinWin:stash()
@@ -595,12 +497,10 @@ if spoon.WinWin then
         spoon.WinWin:stash()
         spoon.WinWin:moveToScreen("next")
     end)
-    cmodal:bind("", "B", "撤销最后一个窗口操作", function()
-        spoon.WinWin:undo()
-    end)
-    cmodal:bind("", "R", "重做最后一个窗口操作", function()
-        spoon.WinWin:redo()
-    end)
+    cmodal:bind("", "B", "撤销最后一个窗口操作",
+                function() spoon.WinWin:undo() end)
+    cmodal:bind("", "R", "重做最后一个窗口操作",
+                function() spoon.WinWin:redo() end)
 
     cmodal:bind("", "[", "左三分之二屏", function()
         spoon.WinWin:stash()
@@ -623,17 +523,17 @@ if spoon.WinWin then
         spoon.WinWin:moveAndResize("lesshalfright")
     end)
 
-    cmodal:bind("", "t", "将光标移至所在窗口中心位置", function()
-        spoon.WinWin:centerCursor()
-    end)
+    cmodal:bind("", "t", "将光标移至所在窗口中心位置",
+                function() spoon.WinWin:centerCursor() end)
 
     -- 定义窗口管理模式快捷键
-    hsresizeM_keys = hsresizeM_keys or { "ctl", "shift", "W" }
+    hsresizeM_keys = hsresizeM_keys or {"ctl", "shift", "W"}
     if string.len(hsresizeM_keys[2]) > 0 then
-        spoon.ModalMgr.supervisor:bind(hsresizeM_keys[1], hsresizeM_keys[2], "进入窗口管理模式", function()
+        spoon.ModalMgr.supervisor:bind(hsresizeM_keys[1], hsresizeM_keys[2],
+                                       "进入窗口管理模式", function()
             spoon.ModalMgr:deactivateAll()
             -- 显示状态指示器，方便查看所处模式
-            spoon.ModalMgr:activate({ "resizeM" }, "#B22222")
+            spoon.ModalMgr:activate({"resizeM"}, "#B22222")
         end)
     end
 end
@@ -646,20 +546,21 @@ if spoon.KSheet then
     local cmodal = spoon.ModalMgr.modal_list["cheatsheetM"]
     cmodal:bind("", "escape", "Deactivate cheatsheetM", function()
         spoon.KSheet:hide()
-        spoon.ModalMgr:deactivate({ "cheatsheetM" })
+        spoon.ModalMgr:deactivate({"cheatsheetM"})
     end)
     cmodal:bind("", "Q", "Deactivate cheatsheetM", function()
         spoon.KSheet:hide()
-        spoon.ModalMgr:deactivate({ "cheatsheetM" })
+        spoon.ModalMgr:deactivate({"cheatsheetM"})
     end)
 
     -- 定义快捷键
-    hscheats_keys = hscheats_keys or { "alt", "H" }
+    hscheats_keys = hscheats_keys or {"alt", "H"}
     if string.len(hscheats_keys[2]) > 0 then
-        spoon.ModalMgr.supervisor:bind(hscheats_keys[1], hscheats_keys[2], "显示应用快捷键", function()
+        spoon.ModalMgr.supervisor:bind(hscheats_keys[1], hscheats_keys[2],
+                                       "显示应用快捷键", function()
             spoon.KSheet:show()
             spoon.ModalMgr:deactivateAll()
-            spoon.ModalMgr:activate({ "cheatsheetM" })
+            spoon.ModalMgr:activate({"cheatsheetM"})
         end)
     end
 end
@@ -693,14 +594,14 @@ function fMoveMouseToCenterOfNextMonitor()
     -- 左键点击
     hs.eventtap.leftClick(absolutePosition)
 
-    --spoon.WinWin:centerCursor()
-    --local frontmostWindow = hs.window.focusedWindow()
+    -- spoon.WinWin:centerCursor()
+    -- local frontmostWindow = hs.window.focusedWindow()
     -- local focus = frontmostWindow:focus()
     -- hs.alert(focus)
-    --local focusApplication = frontmostWindow:application()
-    --hs.alert("切换指针到下个屏幕")
-    --hs.alert("选中软件")
-    --hs.alert(focusApplication:name())
+    -- local focusApplication = frontmostWindow:application()
+    -- hs.alert("切换指针到下个屏幕")
+    -- hs.alert("选中软件")
+    -- hs.alert(focusApplication:name())
 end
 
 -- 将屏幕分为上下左右四个布局
@@ -725,11 +626,11 @@ function getScreens()
             elseif positionVaule["x"] == 0 and positionVaule["y"] == 1 then
                 textScreens = textScreens .. down .. ", "
                 screenMap[down] = hsScreenObj
-                --elseif( positionVaule["x"]==-1 and positionVaule["y"]==0 )
+                -- elseif( positionVaule["x"]==-1 and positionVaule["y"]==0 )
             elseif positionVaule["x"] == -1 then
                 textScreens = textScreens .. left .. ", "
                 screenMap[left] = hsScreenObj
-                --elseif( positionVaule["x"]==1 and positionVaule["y"]==0 )
+                -- elseif( positionVaule["x"]==1 and positionVaule["y"]==0 )
             elseif positionVaule["x"] == 1 then
                 textScreens = textScreens .. right .. ", "
                 screenMap[right] = hsScreenObj
@@ -758,11 +659,8 @@ function getScreens()
             end)
         end
     end
-    textScreens = textScreens
-        .. "共计:"
-        .. screenCount
-        .. "块屏幕."
-        .. "\n                            绑定键位加载完成。。"
+    textScreens = textScreens .. "共计:" .. screenCount .. "块屏幕." ..
+                      "\n                            绑定键位加载完成。。"
     hs.alert(textScreens)
 end
 
@@ -784,9 +682,7 @@ function getaVailableModes()
             if hsScreenObj:getUUID() == uuid then
                 plhDisplay = hsScreenObj
             end
-            if hsScreenObj:id() == id then
-                plhDisplay = hsScreenObj
-            end
+            if hsScreenObj:id() == id then plhDisplay = hsScreenObj end
             local screenModeMap = hsScreenObj:availableModes()
             for k, v in pairs(screenModeMap) do
                 print(k)
@@ -809,30 +705,20 @@ function getaVailableModes()
         for keyp, valuep in pairs(plhDisplayModeMap) do
             print(keyp)
             print(valuep)
-            if keyp == "w" then
-                width = valuep
-            end
-            if keyp == "h" then
-                height = valuep
-            end
-            if keyp == "scale" then
-                scale = valuep
-            end
-            if keyp == "freq" then
-                frequency = valuep
-            end
-            if keyp == "depth" then
-                depth = valuep
-            end
+            if keyp == "w" then width = valuep end
+            if keyp == "h" then height = valuep end
+            if keyp == "scale" then scale = valuep end
+            if keyp == "freq" then frequency = valuep end
+            if keyp == "depth" then depth = valuep end
         end
         print("设置当前屏幕参数")
         print(width .. scale .. height .. depth .. frequency)
-        --local result = plhDisplay:setMode(width, height, scale, frequency, depth)
-        --print(result)
+        -- local result = plhDisplay:setMode(width, height, scale, frequency, depth)
+        -- print(result)
     end
 end
 
---获取显示的基本参数
+-- 获取显示的基本参数
 -- hs.hotkey.bind(cmd, "4", function()
 -- 	getaVailableModes()
 -- end)
@@ -847,8 +733,8 @@ end
 -- end
 -- testWebviewA = hs.webview.newBrowser(hs.geometry.rect(250, 250, 250, 250)):show()
 -- testWebviewB = hs.webview.newBrowser(hs.geometry.rect(450, 450, 450, 450)):show()
---hs.dialog.webviewAlert(testWebviewA, testCallbackFn, "Message", "Informative Text", "Button One", "Button Two", "warning")
---hs.dialog.webviewAlert(testWebviewB, testCallbackFn, "Message", "Informative Text", "Single Button")
+-- hs.dialog.webviewAlert(testWebviewA, testCallbackFn, "Message", "Informative Text", "Button One", "Button Two", "warning")
+-- hs.dialog.webviewAlert(testWebviewB, testCallbackFn, "Message", "Informative Text", "Single Button")
 -- hs.hotkey.bind(cmd, "5", function()
 -- 	--hs.dialog.alert(200, 200, testCallbackFn, "Message", "Informative Text", "Single Button")
 -- 	--hs.dialog.alert(100, 100, testCallbackFn, "显示器", "帧率选择", "144hz", "120hz", "NSCriticalAlertStyle")
@@ -863,7 +749,6 @@ end
 -- 	)
 -- end)
 -- 增加自己窗口模式
-
 
 function windowMy()
     spoon.WinWin:stash()
@@ -892,21 +777,18 @@ function windowhalfright()
 end
 
 -- Press Cmd+Q twice to quit
-local quitModal = hs.hotkey.modal.new(hDPressCmdQTwiceToQuitKeys[1], hDPressCmdQTwiceToQuitKeys[2])
+local quitModal = hs.hotkey.modal.new(hDPressCmdQTwiceToQuitKeys[1],
+                                      hDPressCmdQTwiceToQuitKeys[2])
 function quitModal:entered()
     hs.alert.show("再次键入Cmd+Q退出程序", 1)
-    hs.timer.doAfter(1, function()
-        quitModal:exit()
-    end)
+    hs.timer.doAfter(1, function() quitModal:exit() end)
 end
 
 local function doQuit()
     local app = hs.application.frontmostApplication()
     app:kill()
 end
-quitModal:bind("", "escape", function()
-    quitModal:exit()
-end)
+quitModal:bind("", "escape", function() quitModal:exit() end)
 
 -- keymap('i', 'ctrl+cmd+alt+shift', 'home', '')
 -- keymap('k', 'ctrl+cmd+alt+shift', 'end', '')
@@ -915,10 +797,10 @@ end)
 -- keymap('j', 'ctrl+cmd+alt+shift', 'delete', '')
 -- keymap('0', 'ctrl+cmd+alt+shift', 'PLAY', nil, NO_REPEAT)
 
---Set hyper to ctrl + alt + cmd + shift
---local hyperex = require('hyperex')
+-- Set hyper to ctrl + alt + cmd + shift
+-- local hyperex = require('hyperex')
 -- local hx = hyperex.new('capslock')
---local rightCmd = hyperex.new('rightctrl')
+-- local rightCmd = hyperex.new('rightctrl')
 
 -- hx:mod({'cmd', 'shift','alt','ctrl'}):to('3','4')
 
@@ -943,18 +825,14 @@ local REPEAT_FASTER = 600
 
 local function keyStrokeSystem(key, repeatDelay)
     hs.eventtap.event.newSystemKeyEvent(key, true):post()
-    if repeatDelay <= 0 then
-        repeatDelay = REPEAT_FASTER
-    end
+    if repeatDelay <= 0 then repeatDelay = REPEAT_FASTER end
     hs.timer.usleep(repeatDelay)
     hs.eventtap.event.newSystemKeyEvent(key, false):post()
 end
 
 local function keyStroke(mod, key, repeatDelay)
     hs.eventtap.event.newKeyEvent(mod, key, true):post()
-    if repeatDelay <= 0 then
-        repeatDelay = REPEAT_FASTER
-    end
+    if repeatDelay <= 0 then repeatDelay = REPEAT_FASTER end
     hs.timer.usleep(repeatDelay)
     hs.eventtap.event.newKeyEvent(mod, key, false):post()
 end
@@ -1044,13 +922,15 @@ local changingNetwork = false
 local logger = hs.logger.new("==logger==", "info")
 
 local function getCurrentWiFiNetwork()
-    local networkInfo, success, _ = hs.execute("/usr/sbin/networksetup -getairportnetwork en0")
+    local networkInfo, success, _ = hs.execute(
+                                        "/usr/sbin/networksetup -getairportnetwork en0")
     local result = networkInfo
     logger.d("1", success, "1")
     logger.d("2", result, "2")
     -- print("命令输出：", networkInfo) -- 打印命令输出内容，以便查看实际内容
     if success then
-        local currentNetwork = networkInfo:match("Current Wi%-Fi Network:%s*(.-)%s*$")
+        local currentNetwork = networkInfo:match(
+                                   "Current Wi%-Fi Network:%s*(.-)%s*$")
         return currentNetwork
     else
         return nil
@@ -1073,7 +953,8 @@ local function handleSW()
                 -- local result = handle:read("*a")
                 -- handle:close()
 
-                local tcurrentlocation, success, _ = hs.execute("/usr/sbin/networksetup -getcurrentlocation")
+                local tcurrentlocation, success, _ = hs.execute(
+                                                         "/usr/sbin/networksetup -getcurrentlocation")
                 local trimmedResult = tcurrentlocation:match("^%s*(.-)%s*$") -- 修剪字符串
                 logger.i("当前网络位置:" .. trimmedResult)
                 if currentNetwork == "FLOWES" then
@@ -1098,7 +979,8 @@ local function handleSW()
                     elseif trimmedResult == "Automatic" then
                         hs.execute("networksetup -switchtolocation 'GFW公司'")
                         logger.i("networksetup -switchtolocation 'GFW公司'")
-                        hs.alert.show("网络配置，已切换到『GFW公司』")
+                        hs.alert.show(
+                            "网络配置，已切换到『GFW公司』")
                     else
                         hs.execute("networksetup -switchtolocation 'Automatic'")
                         logger.i("networksetup -switchtolocation 'Automatic'")
@@ -1134,9 +1016,10 @@ local wifiWatcher = nil
 local function startWifiWatcher()
     local success, result = pcall(function()
         logger.d("开始执行")
-        wifiWatcher = hs.wifi.watcher.new(function(watcher, message, interface)
-            handleSW()
-        end)
+        wifiWatcher = hs.wifi.watcher.new(
+                          function(watcher, message, interface)
+                handleSW()
+            end)
     end)
 
     if success then
@@ -1162,9 +1045,9 @@ local function restartWifiWatcher()
 end
 
 -- 每隔一段时间重新启动观察器
---hs.timer.doEvery(60 * 60, function() -- 每隔一小时
+-- hs.timer.doEvery(60 * 60, function() -- 每隔一小时
 --	restartWifiWatcher()
---end)
+-- end)
 
 ----------------------------------------------------------------------------------------------------
 ------------------------------------------ 配置设置 -------------------------------------------------
@@ -1172,61 +1055,75 @@ end
 --
 ---------------------------------------------------------------------------------------------------
 
-
 -- 快捷键：alt+shift + / 查看快捷键设置
 -- 快捷键：cmd+· 选择下一个屏幕
-spoon.ModalMgr.supervisor:bind(hDisplayBindKeys[1], hDisplayBindKeys[2], "快捷键：cmd+· 选择下一个屏幕", getScreens)
+spoon.ModalMgr.supervisor:bind(hDisplayBindKeys[1], hDisplayBindKeys[2],
+                               "快捷键：cmd+· 选择下一个屏幕",
+                               getScreens)
 -- 获取全部显示器并绑定快捷键（生成绑定快捷键关系），用于鼠标指针快速定位到当前屏幕
-hs.hotkey.bind(hMoveMouseToCenterOfNextMonitorKeys[1], hMoveMouseToCenterOfNextMonitorKeys[2], "获取全部显示器并绑定快捷键",
-    fMoveMouseToCenterOfNextMonitor)
+hs.hotkey.bind(hMoveMouseToCenterOfNextMonitorKeys[1],
+               hMoveMouseToCenterOfNextMonitorKeys[2],
+               "获取全部显示器并绑定快捷键",
+               fMoveMouseToCenterOfNextMonitor)
 -- 设置程序默认输入法
 local choicesFn = function() end
 hs.hotkey.bind(hSetDefaultInputKeys[1], hSetDefaultInputKeys[2], ChoicesFn)
-spoon.ModalMgr.supervisor:bind(hSetDefaultInputKeys[1], hSetDefaultInputKeys[2], "设置程序默认输入法", choicesFn)
+spoon.ModalMgr.supervisor:bind(hSetDefaultInputKeys[1], hSetDefaultInputKeys[2],
+                               "设置程序默认输入法", choicesFn)
 -- 切换输入法快捷键
-local chinese = function() end
---hs.hotkey.bind(hyper_oc, "up", Chinese)
-hs.hotkey.bind(hSetChInputKeys[1], hSetChInputKeys[2], Chinese)
-spoon.ModalMgr.supervisor:bind(hSetChInputKeys[1], hSetChInputKeys[2], "切换简体拼音", chinese)
---hs.hotkey.bind(hyper_oc, "down", English)
-local english = function() end
-hs.hotkey.bind(hSetEngInputKeys[1], hSetEngInputKeys[2], English)
-spoon.ModalMgr.supervisor:bind(hSetEngInputKeys[1], hSetEngInputKeys[2], "切换英文abc", english)
---hs.hotkey.bind(hyper_oc, '.', Japanese)
+-- local chinese = function() end
+-- hs.hotkey.bind(hyper_oc, "up", Chinese)
+-- hs.hotkey.bind(hSetChInputKeys[1], hSetChInputKeys[2], Chinese)
+-- spoon.ModalMgr.supervisor:bind(hSetChInputKeys[1], hSetChInputKeys[2], "切换简体拼音", chinese)
+-- hs.hotkey.bind(hyper_oc, "down", English)
+-- local english = function() end
+-- hs.hotkey.bind(hSetEngInputKeys[1], hSetEngInputKeys[2], English)
+-- spoon.ModalMgr.supervisor:bind(hSetEngInputKeys[1], hSetEngInputKeys[2], "切换英文abc", english)
+-- hs.hotkey.bind(hyper_oc, '.', Japanese)
 -- 我的窗口模式
 hs.hotkey.bind(hWindowMyKeys[1], hWindowMyKeys[2], windowMy)
 local windowMy1 = function() end
-spoon.ModalMgr.supervisor:bind(hWindowMyKeys[1], hWindowMyKeys[2], "我的窗口模式", windowMy1)
+spoon.ModalMgr.supervisor:bind(hWindowMyKeys[1], hWindowMyKeys[2],
+                               "我的窗口模式", windowMy1)
 -- 移动下个屏幕我的窗口
-hs.hotkey.bind(hNextDisplayWindowMyKeys[1], hNextDisplayWindowMyKeys[2], nextDisplayWindowMy)
+hs.hotkey.bind(hNextDisplayWindowMyKeys[1], hNextDisplayWindowMyKeys[2],
+               nextDisplayWindowMy)
 local nextDisplayWindowMy1 = function() end
-spoon.ModalMgr.supervisor:bind(hNextDisplayWindowMyKeys[1], hNextDisplayWindowMyKeys[2], "移动下个屏幕我的窗口",
-    nextDisplayWindowMy1)
+spoon.ModalMgr.supervisor:bind(hNextDisplayWindowMyKeys[1],
+                               hNextDisplayWindowMyKeys[2],
+                               "移动下个屏幕我的窗口",
+                               nextDisplayWindowMy1)
 -- 窗口最大化
 hs.hotkey.bind(hWindowMaxKeys[1], hWindowMaxKeys[2], windowMax)
 local windowMax1 = function() end
-spoon.ModalMgr.supervisor:bind(hWindowMaxKeys[1], hWindowMaxKeys[2], "窗口最大化", windowMax1)
+spoon.ModalMgr.supervisor:bind(hWindowMaxKeys[1], hWindowMaxKeys[2],
+                               "窗口最大化", windowMax1)
 -- 窗口移动左面
 hs.hotkey.bind(hWindowHalfleftKeys[1], hWindowHalfleftKeys[2], windowHalfleft)
 local windowHalfleft1 = function() end
-spoon.ModalMgr.supervisor:bind(hWindowHalfleftKeys[1], hWindowHalfleftKeys[2], "窗口移动左面", windowHalfleft1)
+spoon.ModalMgr.supervisor:bind(hWindowHalfleftKeys[1], hWindowHalfleftKeys[2],
+                               "窗口移动左面", windowHalfleft1)
 -- 窗口移动右面
-hs.hotkey.bind(hWindowHalfrightKeys[1], hWindowHalfrightKeys[2], windowhalfright)
+hs.hotkey
+    .bind(hWindowHalfrightKeys[1], hWindowHalfrightKeys[2], windowhalfright)
 local windowhalfright1 = function() end
-spoon.ModalMgr.supervisor:bind(hWindowHalfrightKeys[1], hWindowHalfrightKeys[2], "窗口移动右面", windowhalfright1)
+spoon.ModalMgr.supervisor:bind(hWindowHalfrightKeys[1], hWindowHalfrightKeys[2],
+                               "窗口移动右面", windowhalfright1)
 -- 双击两次cmd+q退出
---quitModal:bind(hDPressCmdQTwiceToQuitKeys[1], hDPressCmdQTwiceToQuitKeys[2], doQuit)
-spoon.ModalMgr.supervisor:bind(hDPressCmdQTwiceToQuitKeys[1], hDPressCmdQTwiceToQuitKeys[2], "双击两次cmd+q退出", doQuit)
+-- quitModal:bind(hDPressCmdQTwiceToQuitKeys[1], hDPressCmdQTwiceToQuitKeys[2], doQuit)
+spoon.ModalMgr.supervisor:bind(hDPressCmdQTwiceToQuitKeys[1],
+                               hDPressCmdQTwiceToQuitKeys[2],
+                               "双击两次cmd+q退出", doQuit)
 -- 音乐暂停
 hs.hotkey.bind(hPauseMusicKeys[1], hPauseMusicKeys[2], pauseMusic)
-spoon.ModalMgr.supervisor:bind(hPauseMusicKeys[1], hPauseMusicKeys[2], "音乐暂停", pauseMusic)
+spoon.ModalMgr.supervisor:bind(hPauseMusicKeys[1], hPauseMusicKeys[2],
+                               "音乐暂停", pauseMusic)
 -- 音乐上一首
---hs.hotkey.bind(hBeforeMusicKeys[1], hBeforeMusicKeys[2], beforeMusic)
+hs.hotkey.bind(hBeforeMusicKeys[1], hBeforeMusicKeys[2], beforeMusic)
 -- spoon.ModalMgr.supervisor:bind(hBeforeMusicKeys[1], hBeforeMusicKeys[2], "音乐上一首", beforeMusic)
 -- 音乐下一首
---hs.hotkey.bind(hAfterMusicKeys[1], hAfterMusicKeys[2], afterMusic)
---spoon.ModalMgr.supervisor:bind(hAfterMusicKeys[1], hAfterMusicKeys[2], "音乐下一首", afterMusic)
-
+hs.hotkey.bind(hAfterMusicKeys[1], hAfterMusicKeys[2], afterMusic)
+-- spoon.ModalMgr.supervisor:bind(hAfterMusicKeys[1], hAfterMusicKeys[2], "音乐下一首", afterMusic)
 
 ----------------------------------------------------------------------------------------------------
 -------------------------------------------- End ---------------------------------------------------
