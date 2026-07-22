@@ -386,5 +386,8 @@ local function applicationWatcher(appName, eventType, appObject)
 	end
 end
 
-local appWatcher = hs.application.watcher.new(applicationWatcher)
+if appWatcher ~= nil then
+	appWatcher:stop()
+end
+appWatcher = hs.application.watcher.new(applicationWatcher)
 appWatcher:start()
