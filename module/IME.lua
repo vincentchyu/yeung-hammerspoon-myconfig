@@ -218,7 +218,7 @@ local function completionFn(chosen)
 
 	if chosen ~= nil then
 		local strList = chosen["uuid"]
-		-- print(strList)
+		print(strList)
 		local fruits = split(strList, "|")
 		local targetIme = ""
 		local currenApp = ""
@@ -314,15 +314,26 @@ end
 
 objChooser.init()
 
+local function tableLen(t)
+    local count = 0
+    for _ in pairs(t) do
+        count = count + 1
+    end
+    return count
+end
+
 -- 记录App输入法状态
 local function imeStash(currentApp)
 	if currentApp == nil then
 		return nil
 	end
 	local currenTime = k.currentSourceID()
-	if App2ImeTable[currentApp] == nil then
-		App2ImeTable[currentApp] = currenTime
-	end
+    if App2ImeTable[currentApp] == nil then
+        print("当前程序没有设置过默认输入法:"..currentApp)
+        -- App2ImeTable[currentApp] = currenTime
+    else
+        print("当前程序设置过默认输入法:"..currentApp)
+    end
 	return App2ImeTable, currenTime
 end
 
@@ -360,19 +371,13 @@ function updateFocusAppInputMethod()
 		return
 	end
 	if extractedValue == eng_input then
-		-- delayTimer = hs.timer.doAfter(0.2, English)
-		-- k.currentSourceID(eng)
 		English()
 	elseif extractedValue == ch_input then
 		Chinese()
 	elseif extractedValue == squirrel_input then
-		-- delayTimer = hs.timer.doAfter(0.2, Chinese)
-		-- k.currentSourceID("com.apple.inputmethod.SCIM.ITABC")
-		-- Chinese()
 		Squirrel()
 	else
 		print("没有添加名单的程序使用中文输入法,当前输入法是" .. extractedValue .. "程序：" .. bundleID)
-		-- delayTimer = hs.timer.doAfter(0.2, Chinese)
 		showImeName(currenTime)
 		return
 	end
